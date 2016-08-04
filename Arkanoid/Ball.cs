@@ -43,6 +43,9 @@ namespace Arkanoid
                 bricks = bricks.Where(x => !x.CollidesWithAny(this)).ToList();
             }
 
+            if (this.Bounds.Top >= 240)
+                this.position = new Vector2(100, 100);
+
             position += dir;
         }
     }
