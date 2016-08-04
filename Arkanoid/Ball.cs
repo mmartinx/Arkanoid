@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Arkanoid
@@ -20,18 +22,25 @@ namespace Arkanoid
             spriteBatch.Draw(ball, position);
         }
 
-        public void Update(Paddle paddle)
+        public void Update(Paddle paddle, ref List<Brick> bricks)
         {
-            if (this.CollidesWithTopOf(paddle) || this.Bounds.Top <= 0)
+            if (this.CollidesWithAny(paddle) || this.Bounds.Top <= 0)
             {
                 dir.Y *= -1;
-                dir *= new Vector2(1.2f, 1.2f);
+                //dir *= new Vector2(1.05f, 1.05f);
             }
 
             if (this.Bounds.Left <= 0 || this.Bounds.Right >= 256)
             {
                 dir.X *= -1;
-                dir *= new Vector2(1.2f, 1.2f);
+                //dir *= new Vector2(1.05f, 1.05f);
+            }
+
+            if (bricks.Any(x => x.CollidesWithAny(this)))
+            {
+                dir.Y *= -1;
+                //dir *= new Vector2(1.05f, 1.05f);
+                bricks = bricks.Where(x => !x.CollidesWithAny(this)).ToList();
             }
 
             position += dir;

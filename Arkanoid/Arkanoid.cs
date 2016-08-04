@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -10,6 +12,7 @@ namespace Arkanoid
         private SpriteBatch spriteBatch;
         private Paddle paddle;
         private Ball[] balls;
+        private List<Brick> bricks;
 
         public Arkanoid()
         {
@@ -28,10 +31,10 @@ namespace Arkanoid
 
             balls = new Ball[]
             {
-                new Ball(4, 4, new Vector2(10, 10), spriteBatch),
-                new Ball(4, 4, new Vector2(50, 50), spriteBatch),
-                new Ball(4, 4, new Vector2(100, 200), spriteBatch)
+                new Ball(4, 4, new Vector2(100, 100), spriteBatch)
             };
+
+            bricks = Brick.GenerateBricks(16, 5, 16, 8, spriteBatch).ToList();
             GraphicsDevice.Clear(Color.CornflowerBlue);
         }
 
@@ -52,7 +55,7 @@ namespace Arkanoid
 
             foreach (var ball in balls)
             {
-                ball.Update(paddle);
+                ball.Update(paddle, ref bricks);
             }
 
             if (state.IsKeyDown(Keys.Left))
@@ -74,6 +77,11 @@ namespace Arkanoid
             foreach (var ball in balls)
             {
                 ball.Draw(gameTime);
+            }
+
+            foreach (var brick in bricks)
+            {
+                brick.Draw(gameTime);
             }
 
             spriteBatch.End();

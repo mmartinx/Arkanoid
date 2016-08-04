@@ -15,30 +15,21 @@ namespace Arkanoid
             this.position = position;
         }
 
-        public Rectangle Bounds => new Rectangle((int)(position.X - width / 2), (int)(position.Y - height / 2), width, height);
+        public Rectangle Bounds => new Rectangle((int)position.X, (int)position.Y, width, height);
 
         public bool CollidesWithRightOf(ICollidable collidable) =>
-                Bounds.Right >= collidable.Bounds.Left && 
-                Bounds.Top >= collidable.Bounds.Bottom &&
-                Bounds.Bottom <= collidable.Bounds.Top;
+            Bounds.Intersects(collidable.Bounds);
 
         public bool CollidesWithLeftOf(ICollidable collidable) =>
-                Bounds.Left <= collidable.Bounds.Right &&
-                Bounds.Top >= collidable.Bounds.Bottom &&
-                Bounds.Bottom <= collidable.Bounds.Top;
+            Bounds.Intersects(collidable.Bounds);
 
         public bool CollidesWithTopOf(ICollidable collidable) =>
-                Bounds.Bottom >= collidable.Bounds.Top &&
-                Bounds.Right >= collidable.Bounds.Left &&
-                Bounds.Left <= collidable.Bounds.Right;
+            Bounds.Intersects(collidable.Bounds);
 
         public bool CollidesWithBottomOf(ICollidable collidable) =>
-                Bounds.Top >= collidable.Bounds.Bottom &&
-                Bounds.Right >= collidable.Bounds.Left &&
-                Bounds.Left <= collidable.Bounds.Right;
+            Bounds.Intersects(collidable.Bounds);
 
         public bool CollidesWithAny(ICollidable collidable) =>
-            CollidesWithBottomOf(collidable) || CollidesWithTopOf(collidable) ||
-            CollidesWithLeftOf(collidable) || CollidesWithRightOf(collidable);
+            Bounds.Intersects(collidable.Bounds);
     }
 }

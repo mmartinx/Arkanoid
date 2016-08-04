@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Arkanoid.cs" />
     <Compile Include="Ball.cs" />
+    <Compile Include="Brick.cs" />
     <Compile Include="Collidable.cs" />
     <Compile Include="ICollidable.cs" />
     <Compile Include="Paddle.cs" />
