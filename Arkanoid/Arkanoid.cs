@@ -34,7 +34,7 @@ namespace Arkanoid
                 new Ball(4, 4, new Vector2(100, 100), spriteBatch)
             };
 
-            bricks = Brick.GenerateBricks(16, 5, 16, 8, spriteBatch).ToList();
+            bricks = Brick.GenerateBricks(16, 5, 16, 8, Color.CornflowerBlue, spriteBatch).ToList();
             GraphicsDevice.Clear(Color.CornflowerBlue);
         }
 

@@ -27,7 +27,7 @@ namespace Arkanoid
             spriteBatch.Draw(brick, position);   
         }
 
-        public static IEnumerable<Brick> GenerateBricks(int width, int height, int rows, int cols, SpriteBatch spriteBatch)
+        public static IEnumerable<Brick> GenerateBricks(int width, int height, int rows, int cols, Color color, SpriteBatch spriteBatch)
         {
             Texture2D texture = TextureBuilder.BuildTexture(width, height, color, spriteBatch);
             for (var y = 0; y < cols; ++y)
